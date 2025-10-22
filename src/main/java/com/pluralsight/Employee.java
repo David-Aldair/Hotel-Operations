@@ -1,11 +1,14 @@
 package com.pluralsight;
 
+import java.time.LocalDateTime;
+
 public class Employee {
     private int employeeId;
     private String name;
     private String department;
     private double payRate;
-    private int hoursWorked;
+    private double hoursWorked;
+    private double startTime;
 
     public Employee(int employeeId, String name, String department, double payRate, int hoursWorked) {
         this.employeeId = employeeId;
@@ -47,7 +50,7 @@ public class Employee {
         this.payRate = payRate;
     }
 
-    public int getHoursWorked() {
+    public double getHoursWorked() {
         return hoursWorked;
     }
 
@@ -56,28 +59,50 @@ public class Employee {
     }
 
     //derived getters
-    public int getRegularHours() {
-
-        if (this.getRegularHours() > 40) {
-
+    public double getRegularHours() {
+        if(this.getHoursWorked() > 40){
             return 40;
         }
         return this.getHoursWorked();
     }
 
-    public int getOvertimeHours() {
+    public double getOvertimeHours() {
         if (this.getHoursWorked() > 40) {
             return this.getHoursWorked() - 40;
         }
         return 0;
     }
+    public void punchedIn(double time){
+        this.startTime = time;
+    }
+
+    public void punchedOut(double time){
+        this.hoursWorked += time - this.startTime;
+    }
+
+    public void punchIn(){
+        LocalDateTime now = LocalDateTime.now();
+        double currentTime = now.getHour() + (now.getMinute() / 60.0);
+
+        this.punchIn(currentTime);
+    }
 
     public double getTotalPay() {
-
 
         double regularPay = this.getRegularHours() * this.getPayRate();
         double overTimePay = this.getOvertimeHours() * this.getPayRate() * 1.5;
 
         return regularPay + overTimePay;
+    }
+    public void punchOut(){
+        LocalDateTime now = LocalDateTime.now();
+        double currentTime = now.getHour() + (now.getMinute() / 60.0);
+
+        this.punchOut(currentTime);
+    }
+
+    public void punchTimeCard(double punchInTime, double punchOutTime){
+        this.punchIn(punchedInTime);
+        this.punchOut(punchedOutTime);
     }
 }
