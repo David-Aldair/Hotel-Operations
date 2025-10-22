@@ -51,7 +51,8 @@ class RoomTest {
         boolean isClean2 = cleanedRoom.isOccupied();
 
         //assert
-        assertFalse(isClean && isClean2);
+        assertFalse(isClean);
+        assertFalse(isClean2);
     }
 
 }
