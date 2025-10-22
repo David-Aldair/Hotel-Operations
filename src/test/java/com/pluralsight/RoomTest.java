@@ -20,7 +20,8 @@ class RoomTest {
         boolean isCheckedIn2 = checkedInRoom.isOccupied();
 
         //assert
-        assertTrue(isCheckedIn && isCheckedIn2);
+        assertTrue(isCheckedIn);
+        assertTrue(isCheckedIn2);
     }
     //test for checkedOut
     @Test
@@ -51,6 +52,7 @@ class RoomTest {
         boolean isClean2 = cleanedRoom.isOccupied();
 
         //assert
+        //assertFalse twice instead of using && because then both must be true to fail
         assertFalse(isClean);
         assertFalse(isClean2);
     }
